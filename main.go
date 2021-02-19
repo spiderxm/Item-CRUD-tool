@@ -22,11 +22,12 @@ func initDB() {
 
 func menu() {
 	heading := "** Welcome to Items CRUD functionality ** "
-	option1 := "1.) Add Item"
-	option2 := "2.) Delete Item"
-	option3 := "3.) Retrieve Item"
-	option4 := "4.) Retrieve All Items"
-	option5 := "5.) Dump All Items in items.json file"
+	option1 := "1.) Add Item. -- Press 1 -- "
+	option2 := "2.) Delete Item. -- Press 2 -- "
+	option3 := "3.) Retrieve Item. -- Press 3 -- "
+	option4 := "4.) Retrieve All Items. -- Press 4 -- "
+	option5 := "5.) Dump All Items in items.json file. -- Press 5 -- "
+	option6 := "6.) Press any other key to exit. -- Press any other key -- "
 
 	fmt.Println(heading)
 	fmt.Println(option1)
@@ -34,9 +35,30 @@ func menu() {
 	fmt.Println(option3)
 	fmt.Println(option4)
 	fmt.Println(option5)
+	fmt.Println(option6)
+	fmt.Print("Enter Your Choice : ")
 }
 func main() {
 	// Initialize Database
 	initDB()
-
+	var option string
+	loop := true
+	for loop == true {
+		menu()
+		fmt.Scan(&option)
+		switch option {
+		case "1":
+			services.AddItem()
+		case "2":
+			services.DeleteItem()
+		case "3":
+			services.FindItem()
+		case "4":
+			services.AllItems()
+		case "5":
+			services.AllItemsToJsonFile()
+		default:
+			loop = false
+		}
+	}
 }
