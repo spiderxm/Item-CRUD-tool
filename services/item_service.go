@@ -105,3 +105,45 @@ func AllItemsToJsonFile() {
 		}
 	}
 }
+
+func UpdateItem() {
+	var item models.Item
+	db := DBConn
+	var id int
+	fmt.Print("Enter id to find Record : ")
+	fmt.Scan(&id)
+	result := db.Find(&item, id)
+	if result.Error != nil {
+		fmt.Println("--- ", result.Error.Error(), " ---")
+
+	} else {
+		itemInJson, _ := json.MarshalIndent(item, "", "    ")
+		fmt.Println("--- Item Details in JSON ---")
+		fmt.Println(string(itemInJson))
+		var (
+			Name        string
+			Description string
+			Price       float64
+			Quantity    int64
+		)
+		fmt.Println("-- Enter New Details --")
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Enter Item Name : ")
+		Name, _ = reader.ReadString('\n')
+		fmt.Print("Enter Item Description : ")
+		Description, _ = reader.ReadString('\n')
+		fmt.Print("Enter Item Price : ")
+		fmt.Scan(&Price)
+		fmt.Print("Enter Item Quantity : ")
+		fmt.Scan(&Quantity)
+		item.Name = Name
+		item.Description = Description
+		item.Price = Price
+		item.Quantity = Quantity
+		db.Save(&item)
+		fmt.Println("Item Updated")
+		itemInJson, _ = json.MarshalIndent(item, "", "    ")
+		fmt.Println("--- Updated Item Details in JSON ---")
+		fmt.Println(string(itemInJson))
+	}
+}

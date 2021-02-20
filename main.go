@@ -15,7 +15,6 @@ func initDB() {
 		panic(err)
 	}
 	fmt.Println("Database connection successfully opened.")
-
 	services.DBConn.AutoMigrate(&models.Item{})
 	fmt.Println("Database Migrated")
 }
@@ -27,7 +26,8 @@ func menu() {
 	option3 := "3.) Retrieve Item. -- Press 3 -- "
 	option4 := "4.) Retrieve All Items. -- Press 4 -- "
 	option5 := "5.) Dump All Items in items.json file. -- Press 5 -- "
-	option6 := "6.) Press any other key to exit. -- Press any other key -- "
+	option6 := "6.) Update Item. -- Press 6 -- "
+	option7 := "7.) Press any other key to exit. -- Press any other key -- "
 
 	fmt.Println(heading)
 	fmt.Println(option1)
@@ -36,6 +36,7 @@ func menu() {
 	fmt.Println(option4)
 	fmt.Println(option5)
 	fmt.Println(option6)
+	fmt.Println(option7)
 	fmt.Print("Enter Your Choice : ")
 }
 func main() {
@@ -57,6 +58,8 @@ func main() {
 			services.AllItems()
 		case "5":
 			services.AllItemsToJsonFile()
+		case "6":
+			services.UpdateItem()
 		default:
 			loop = false
 		}
