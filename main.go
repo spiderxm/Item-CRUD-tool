@@ -61,6 +61,7 @@ func main() {
 		case "6":
 			services.UpdateItem()
 		default:
+			fmt.Println("Thanks for using Items CRUD Functionality tool.")
 			loop = false
 		}
 	}
